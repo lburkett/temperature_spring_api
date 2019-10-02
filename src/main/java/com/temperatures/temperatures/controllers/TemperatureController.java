@@ -2,6 +2,7 @@ package com.temperatures.temperatures.controllers;
 
 import com.temperatures.temperatures.models.Temperature;
 import com.temperatures.temperatures.models.TemperatureFahrenheit;
+import com.temperatures.temperatures.models.TemperatureRequest;
 import com.temperatures.temperatures.repositories.TemperatureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -36,16 +37,17 @@ public class TemperatureController {
     }
 
     @PostMapping("/temperature")
-    Temperature newTemperature(@RequestBody Temperature temperature) {
-        return repo.save(temperature);
+    Temperature newTemperature(@RequestBody TemperatureRequest temperature) {
+        return repo.save(new Temperature(temperature));
     }
 
     @PutMapping("/temperature/{id}")
-    Temperature replaceTemperature(@RequestBody Temperature newTemperature, @PathVariable Integer id) {
+    Temperature replaceTemperature(@RequestBody TemperatureRequest temperatureRequest, @PathVariable Integer id) {
         return repo.findById(id).map(temperature -> {
-            temperature.setTemperature(newTemperature.getTemperature());
+            temperature.setTemperature(temperatureRequest.getTemperature());
             return repo.save(temperature);
         }).orElseGet(() -> {
+            Temperature newTemperature = new Temperature(temperatureRequest);
             newTemperature.setId(id);
             return repo.save(newTemperature);
         });

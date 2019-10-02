@@ -23,6 +23,10 @@ public class Temperature {
 
     public Temperature() { }
 
+    public Temperature(TemperatureRequest request) {
+        Temperature = request.getTemperature();
+    }
+
     public Integer getId() {
         return Id;
     }
