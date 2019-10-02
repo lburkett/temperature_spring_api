@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.1.8.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
 	id 'java'
+//	id "io.swagger.core.v3.swagger-gradle-plugin" version "2.0.9.1"
 }
 
 group = 'com.temperatures'
@@ -10,6 +11,7 @@ sourceCompatibility = '1.8'
 
 repositories {
 	mavenCentral()
+	jcenter()
 }
 
 dependencies {
@@ -17,4 +19,6 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	runtimeOnly 'mysql:mysql-connector-java'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	compile 'io.springfox:springfox-swagger2:2.9.2'
+	compile 'io.springfox:springfox-swagger-ui:2.9.2'
 }
